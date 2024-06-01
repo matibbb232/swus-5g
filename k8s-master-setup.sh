@@ -20,6 +20,10 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # TODO: ADD /etc/hosts
+sed -i '/k8s-master/d' /path/to/your/file # delete old entry
+echo "<ip_of_k8s-master> k8s-master" | tee -a /etc/hosts # or kube-master?
+
+sudo swapoff -a
 sudo kubeadm init --control-plane-endpoint kube-master:6443 --pod-network-cidr 10.10.0.0/16
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
