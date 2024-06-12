@@ -18,7 +18,8 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # TODO: ADD /etc/hosts
-echo "<ip_of_k8s-master> k8s-master" | tee -a /etc/hosts # or kube-master?
+#    <IPofK8sMaster>
+echo "192.168.10.4 k8s-master" | tee -a /etc/hosts # or kube-master?
 
 
 sudo swapoff -a
