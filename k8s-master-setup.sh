@@ -9,19 +9,34 @@ sudo systemctl enable docker
 sudo systemctl start docker
 
 # adding K8s repos
-sudo apt-get install apt-transport-https curl -y
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -k # -k of - ?
-# cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-# deb https://apt.kubernetes.io/ kubernetes-xenial main
-# EOF
-sudo apt-add-repository 'deb http://apt.kubernetes.io/ kubernetes-xenial main' --yes
+sudo apt-get update
+# apt-transport-https may be a dummy package; if so, you can skip that package
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+
+sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
+sudo systemctl enable --now kubelet
+
+# sudo apt-get install apt-transport-https curl -y
+# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -k # -k of - ?
+# # cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+# # deb https://apt.kubernetes.io/ kubernetes-xenial main
+# # EOF
+# sudo apt-add-repository 'deb http://apt.kubernetes.io/ kubernetes-xenial main' --yes
+# sudo apt-get update
+# sudo apt-get install -y kubelet kubeadm kubectl
+# sudo apt-mark hold kubelet kubeadm kubectl
+
 # TODO: ADD /etc/hosts
-sed -i '/k8s-master/d' /etc/hosts # delete old entry
-echo "192.168.10.4 k8s-master" | tee -a /etc/hosts # or kube-master?
+sudo sed -i '/k8s-master/d' /etc/hosts # delete old entry
+sudo echo "192.168.10.4 k8s-master" | sudo tee -a /etc/hosts # or kube-master?
 
 sudo swapoff -a
 sudo kubeadm init --control-plane-endpoint kube-master:6443 --pod-network-cidr 10.10.0.0/16
