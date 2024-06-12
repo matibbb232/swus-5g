@@ -12,7 +12,7 @@ sudo systemctl start docker
 sudo apt-get install apt-transport-https curl -y
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -k # -k of - ?
 
-sudo apt-add-repository 'deb http://apt.kubernetes.io/ kubernetes-xenial main'
+sudo apt-add-repository 'deb http://apt.kubernetes.io/ kubernetes-xenial main' --yes
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
