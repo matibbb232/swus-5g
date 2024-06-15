@@ -7,6 +7,8 @@
 # Creating and configuring VMs
 https://www.youtube.com/watch?v=EHDDm_iR1Fs
 
+https://medium.com/@mojabi.rafi/create-a-kubernetes-cluster-using-virtualbox-and-without-vagrant-90a14d791617
+
 ## Create NAT Network
 
 ## Create VMs
