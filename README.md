@@ -1,3 +1,11 @@
+# Project files for deployment of [Free5gc](https://github.com/free5gc/free5gc) and [UERANSIM](https://github.com/aligungr/UERANSIM)
+
+Goal was deploying 5g network on Kubernetes cluster.
+
+Part of the project for SWUS course during the 2024Z semester at 
+the Faculty of Electronics and Information Technology (FEIT), 
+Warsaw University of Technology (WUT).
+
 # Requaired tools:
 - Terraform
 - VirtualBox
